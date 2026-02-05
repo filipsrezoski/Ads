@@ -6,10 +6,6 @@ import java.io.InputStreamReader;
 import java.util.NoSuchElementException;
 import java.util.NoSuchElementException;
 
-import java.util.NoSuchElementException;
-import java.util.Scanner;
-
-
 interface Stack<E> {
     // Elementi na stekot se objekti od proizvolen tip.
     // Metodi za pristap:
@@ -111,72 +107,43 @@ class LinkedStack<E> implements Stack<E> {
 
 }
 
+
+
+
+
+
 public class Zadacha5 {
     public static void main(String[] args) throws IOException {
-        /*BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String line;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         LinkedStack<String> stack = new LinkedStack<>();
-        int flag = 1;
-        while (true){
-            line = br.readLine();
-            if(line.equals("x")){
-                break;
-            }
-            if(!line.startsWith("end")){
-                stack.push(line);
-            }else{
-                String zbor = line.substring(3, line.length());
-                if(stack.isEmpty()){
-                    flag = 0;
-                    break;
-                }
-                if(!zbor.equals(stack.peek())){
-                    flag = 0;
-                    break;
-                }else{
-                    stack.pop();
-                }
-            }
-        }
-        if(stack.isEmpty() && flag == 1){
-            System.out.println("Valid");
-        }else{
-            System.out.println("Invalid");
-        }*/
-        LinkedStack<String> stack = new LinkedStack<>();
-        Scanner sc = new Scanner(System.in);
         int flag = 1;
         while(true){
-
-            String line = sc.next();
+            String line = br.readLine();
             if(line.equals("x")){
-                if(!stack.isEmpty()){
-                    flag = 0;
-                }
                 break;
             }
-            if(!line.startsWith("end")){
-                stack.push(line);
-            }else{
-                String zbor = line.substring(3, line.length());
+
+
+            if(line.startsWith("end")){
                 if(stack.isEmpty()){
                     flag = 0;
                     break;
                 }
-                if(!zbor.equals(stack.peek())){
+                if(!stack.peek().equals(line.substring(3, line.length()))){
                     flag = 0;
                     break;
                 }else{
                     stack.pop();
                 }
+            }else{
+                stack.push(line);
             }
-
         }
         if(flag == 1 && stack.isEmpty()){
             System.out.println("Valid");
-        }else{
+        }else if(flag == 0 || !stack.isEmpty()){
             System.out.println("Invalid");
         }
-
     }
 }
+

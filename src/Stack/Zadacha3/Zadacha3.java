@@ -1,23 +1,10 @@
 package Stack.Zadacha3;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * @author Aleksandar
- */
-// Java Program to check if a queue
-// of first n natural number can
-// be sorted using a stack
 
 import java.io.*;
 import java.util.*;
 
 
-import java.util.NoSuchElementException;
 import java.util.NoSuchElementException;
 
 class ArrayQueue<E> {
@@ -150,29 +137,32 @@ class ArrayStack<E> implements Stack<E> {
         return topmost;
     }
 }
+
 public class Zadacha3 {
-        public static void main(String[] args){
-            Scanner sc = new Scanner(System.in);
-            int n = sc.nextInt();
-            ArrayStack<Integer> stack = new ArrayStack<>(51);
-            ArrayQueue<Integer> queue = new ArrayQueue<>(51);
-            for(int i=1;i<52;i++){
-                queue.enqueue(i);
-            }
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int broj = Integer.parseInt(br.readLine());
+        ArrayQueue<Integer> queue = new ArrayQueue<>(51);
+        ArrayStack<Integer> stack = new ArrayStack<>(7);
 
-            int meshanje = 0;
-            while(queue.peek() != n){
-                for(int i=0;i<7;i++){
-                    stack.push(queue.dequeue());
-                }
-                for(int i=0;i<7;i++){
-                    queue.enqueue(stack.pop());
-                    queue.enqueue(queue.dequeue());
-                }
-
-                meshanje++;
-            }
-
-            System.out.println(meshanje);
+        for(int i=1;i<=51;i++){
+            queue.enqueue(i);
         }
+
+        int meashanje = 0;
+        while(queue.peek() != broj){
+            for(int i=0;i<7;i++){
+                stack.push(queue.dequeue());
+            }
+
+            while(!stack.isEmpty()){
+                queue.enqueue(stack.pop());
+                queue.enqueue(queue.dequeue());
+            }
+
+            meashanje++;
+        }
+
+        System.out.println(meashanje);
+    }
 }

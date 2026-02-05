@@ -77,36 +77,38 @@ class ArrayStack<E> implements Stack<E> {
         return topmost;
     }
 }
+
 public class Zadacha2 {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String input = br.readLine();
-        ArrayStack<Integer> stack = new ArrayStack<>(input.length());
-        String number = "";
+    public static void main(String [] args) throws IOException {
+        BufferedReader br  = new BufferedReader(new InputStreamReader(System.in));
+        String operacija = br.readLine();
+        ArrayStack<Integer> stack = new ArrayStack<>(operacija.length());
+        int number = 0;
         char operator = '+';
 
-        input += '+';
+        operacija += '+';
 
-        for(int i=0;i<input.length();i++){
-            if(Character.isDigit(input.charAt(i))){
-                number = number + input.charAt(i);
+        for(int i=0; i<operacija.length(); i++){
+            if(Character.isDigit(operacija.charAt(i))){
+                number = number*10 + Integer.parseInt(String.valueOf(operacija.charAt(i)));
             }else{
                 if(operator == '+'){
-                    stack.push(Integer.parseInt(number));
-                }else if(operator == '*'){
-                    stack.push(Integer.parseInt(number) * stack.pop());
+                    stack.push(number);
+                }else if (operator == '*'){
+                    stack.push(number * stack.pop());
                 }
 
-                number = "";
-                operator = input.charAt(i);
+                number = 0;
+                operator = operacija.charAt(i);
             }
+
+
         }
 
         int sum = 0;
         while(!stack.isEmpty()){
             sum += stack.pop();
         }
-
         System.out.println(sum);
     }
 }

@@ -75,62 +75,28 @@ class ArrayStack<E> implements Stack<E> {
         return topmost;
     }
 }
+
 public class Zadacha4 {
-    public static void main(String[] args) {
+    public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
+        int broj = sc.nextInt();
         sc.nextLine();
-        ArrayStack<String> stack = new ArrayStack<>(n);
+        ArrayStack<String> stack = new ArrayStack<>(broj);
         int flag = 1;
-        for (int i = 0; i < n; i++) {
+        for(int i=0; i<broj ; i++){
             String tag = sc.next();
-                if (tag.startsWith("[/")) {
-                    if (stack.isEmpty() || !stack.peek().equals(tag.substring(2, tag.length() - 1))) {
-                        flag = 0;
-                        break;
-                    } else {
-                        stack.pop();
-                    }
-                } else {
-                    stack.push(tag.substring(1, tag.length() - 1));
+            if(tag.startsWith("[/")){
+                if(stack.isEmpty() || !stack.peek().equals(tag.substring(2, tag.length()-1))){
+                    flag = 0;
+                    break;
+                }else {
+                    stack.pop();
                 }
+            }else{
+                stack.push(tag.substring(1, tag.length() - 1));
+            }
         }
+
         System.out.println(flag);
     }
 }
-    /*public static int ValidOrNot(int n, String[] niza){
-        ArrayStack<String> stack = new ArrayStack<>(n);
-
-        int flag = 1;
-        for(int i=0;i<n;i++){
-            if(niza[i].charAt(0) == '['){
-                if(niza[i].charAt(1) == '/'){
-                    if(!stack.peek().equals(niza[i].substring(2, niza[i].length() - 1))){
-                     flag = 0;
-                     break;
-                    }else{
-                        stack.pop();
-                    }
-                }else{
-                 stack.push(niza[i].substring(1, niza[i].length() - 1));
-                }
-            }
-        }
-        //System.out.println(flag);
-        return flag;
-    }
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        String[] parts = br.readLine().split(" ");
-        String[] niza = new String[n];
-
-        for(int i=0;i<n;i++){
-            niza[i] = parts[i];
-        }
-
-        System.out.println(ValidOrNot(n, niza));
-    }*/
-
-
-

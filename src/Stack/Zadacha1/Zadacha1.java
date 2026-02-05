@@ -73,41 +73,64 @@ class ArrayStack<E> implements Stack<E> {
         return topmost;
     }
 }
+
 public class Zadacha1 {
-    public static void main(String[] args) throws IOException {
+    public static void main(String [] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String bracket = br.readLine();
-        ArrayStack<Character> stack = new ArrayStack<>(bracket.length());
+        String line = br.readLine();
+        ArrayStack<Character> stack = new ArrayStack<>(line.length());
         int flag = 1;
-        for(char c : bracket.toCharArray()){
-            if(c == '(' || c == '{' || c == '['){
+        int kruzhna = 0;
+        int kockesta = 0;
+        int jaglesta = 0;
+        for(char c : line.toCharArray()){
+            if(c == '('){
                 stack.push(c);
+                kruzhna++;
+            }else if(c == '{'){
+                stack.push(c);
+                jaglesta++;
+            }else if(c == '['){
+                stack.push(c);
+                kockesta++;
             }
 
             if(c == ')'){
-                if(!stack.isEmpty()){
-                    if(!stack.pop().equals('(')){
-                        flag = 0;
-                    }
+                if(stack.isEmpty()){
+                    flag = 0;
+                    break;
+                }else if(!stack.pop().equals('(')){
+                    flag = 0;
+                    break;
                 }
-            }else if(c == '}'){
-                if(!stack.isEmpty()){
-                    if(!stack.pop().equals('{')){
-                        flag = 0;
-                    }
+            }
+
+            if(c == '}'){
+                if(stack.isEmpty()){
+                    flag = 0;
+                    break;
+                }else if(!stack.pop().equals('{')){
+                    flag = 0;
+                    break;
                 }
-            }else if(c == ']'){
-                if(!stack.isEmpty()){
-                    if(!stack.pop().equals('[')){
-                        flag = 0;
-                    }
+            }
+
+            if(c == ']'){
+                if(stack.isEmpty()){
+                    flag = 0;
+                    break;
+                }else if(!stack.pop().equals('[')){
+                    flag = 0;
+                    break;
                 }
             }
         }
-        if(flag == 1){
-            System.out.println(1);
-        }else if(flag == 0){
-            System.out.println(0);
+
+        if(kockesta != kruzhna || kockesta != jaglesta){
+            flag = 0;
+            System.out.println(flag);
         }
+
+        System.out.println(flag);
     }
 }
